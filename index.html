@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do List</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div class="container">
+        
+        <button id="toggle-dark-mode">Modo Escuro</button>
+        <h1>To-Do List</h1>
+        <!-- Formulário para adicionar novas tarefas -->
+            <input type="text" id="txt" placeholder="Adicione uma nova tarefa">
+            <button onclick="deleteLI()">Excluir</button>
+            <button onclick="editLI()">Editar</button>                
+            <button onclick="addLI()">Adicionar</button>
+            
+    
+        <!-- Lista de tarefas -->
+        <ul id="list">                
+            <!-- As tarefas serão adicionadas aqui dinamicamente -->
+        </ul>
+</div>
+
+<script>
+      
+    var inputText = document.getElementById("txt"),
+           items = document.querySelectorAll("#list li"),
+           tab = [], index;
+   
+      
+       
+       for(var i = 0; i < items.length; i++){
+           tab.push(items[i].innerHTML);
+       }
+       
+       
+       for(var i = 0; i < items.length; i++){
+           //função para pegar valores clicados
+           items[i].onclick = function(){
+               index = tab.indexOf(this.innerHTML);
+               console.log(this.innerHTML + " INDEX = " + index);
+               
+               inputText.value = this.innerHTML;
+           };
+           
+       }
+      
+      function refreshArray()
+      {
+          // limpa e preenche o array
+          tab.length = 0;
+          items = document.querySelectorAll("#list li");                
+          for(var i = 0; i < items.length; i++){
+           tab.push(items[i].innerHTML);
+         }
+      }
+      function addLI(){
+          //funcao para adicionar itens
+          var listNode = document.getElementById("list"),
+              textNode = document.createTextNode(inputText.value),
+              liNode = document.createElement("LI");
+              
+              liNode.appendChild(textNode);
+              listNode.appendChild(liNode);
+              inputText.value = "";
+              
+              refreshArray();
+              
+              
+              
+              liNode.onclick = function(){
+               index = tab.indexOf(liNode.innerHTML);
+               console.log(liNode.innerHTML + " INDEX = " + index);
+               
+               inputText.value = liNode.innerHTML;                     
+           };
+              
+       }
+        document.getElementById('toggle-dark-mode').addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');         
+        });
+
+    </script>
+</body>
+</html>
