@@ -80,6 +80,20 @@
            };
               
        }
+       function editLI(){
+             // editar itens
+             items[index].innerHTML = inputText.value;
+             refreshArray();
+             inputText.value = "";
+        }
+        function deleteLI(){
+              //apagar itens 
+                  refreshArray();
+                  if(items.length > 0){
+                      items[index].parentNode.removeChild(items[index]);
+                      inputText.value = "";
+                  }
+        }
         document.getElementById('toggle-dark-mode').addEventListener('click', function() {
         document.body.classList.toggle('dark-mode');         
         });
